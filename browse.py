@@ -30,7 +30,12 @@ class Browser():
         self.scroll.add(self.webview)
         self.webview.show()
 
-        self.webview.open('http://www.munisatipo.gob.pe/index.php/galerias')
+        self.webview.open('http://www.google.com')
+        #self.webview.open('http://www.munisatipo.gob.pe/index.php/galerias')
+
+        self.webview.connect("navigation-policy-decision-requested", self.check)
+
+
 
     def on_aceptar_button_clicked(self, widget, data=None):
         if self.password_entry.get_text() == "123":
@@ -54,6 +59,12 @@ class Browser():
         self.password_dialog.show()
         #self.win2.show()
         return True
+
+    def check(a, b, c, d, e, f):
+    #def check(view, frame, req, nav, policy, user):
+        print("eres una perra")
+        return False
+
 
 Browser()
 Gtk.main()
