@@ -1,9 +1,12 @@
 #!/usr/bin/env python3.5
 
-import gi
+import gi, os
 gi.require_version('WebKit', '3.0')
 gi.require_version('Gtk', '3.0')
-from gi.repository import WebKit, Gtk
+#gi.require_version('Notify', '0.7')
+from gi.repository import WebKit, Gtk, GLib
+
+op = os.path
 
 class Browser():
     def __init__(self):
@@ -73,8 +76,27 @@ class Browser():
     def download(self, widget, download, data=None):
         print("Hay una descarga")
         #dest = "/home/vampirodx/"
-        print(dir(download))
-        #down.set_destination_uri(download,dest)
+        #print(download.get_uri())
+
+        DOWNLOAD_DIR = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DOWNLOAD)
+        print(DOWNLOAD_DIR)
+
+        name = download.get_suggested_filename()
+        print(name)
+
+        ext = op.splitext(name)
+        print(ext)
+
+        path = op.join(DOWNLOAD_DIR, name)
+        print(path)
+
+        download.set_destination_uri('file://%s' % path)
+        print('file://%s' % path)
+
+
+        #download.set_destination_uri("file://home/vampirodx/hola.txt")
+
+
         #download.start(download)
         #down.webkit_download_start()
         return True

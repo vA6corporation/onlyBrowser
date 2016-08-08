@@ -233,7 +233,7 @@
                     <property name="can_focus">False</property>
                     <property name="label" translatable="yes">toolbutton2</property>
                     <property name="use_underline">True</property>
-                    <property name="stock_id">gtk-close</property>
+                    <property name="stock_id">gtk-quit</property>
                     <signal name="clicked" handler="on_close_button_clicked" swapped="no"/>
                   </object>
                   <packing>
