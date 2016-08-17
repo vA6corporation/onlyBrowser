@@ -27,7 +27,7 @@ class Browser():
         self.win.set_default_size(500, 500)
 
         self.win.connect("destroy", Gtk.main_quit)
-        #self.win.maximize()
+        self.win.fullscreen()
         self.win.show()
         gui.connect_signals(self)
 
@@ -35,7 +35,7 @@ class Browser():
         self.scroll.add(self.webview)
         self.webview.show()
 
-        self.webview.open('http://munisatipo.gob.pe/index.php/22-convocatoria')
+        self.webview.open('http://munisatipo.gob.pe/')
         #self.webview.open('http://www.munisatipo.gob.pe/index.php/galerias')
 
         self.webview.connect("navigation-policy-decision-requested", self.check)
@@ -79,12 +79,13 @@ class Browser():
         #self.message_dialog.show()
         print("Se abre una ventana")
         policy.download()
+
         return False
 
     def download(self, widget, download, data=None):
         print("Hay una descarga")
-        #dest = "/home/vampirodx/"
-        #print(download.get_uri())
+
+        print(dir(download))
 
         DOWNLOAD_DIR = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DOWNLOAD)
         print(DOWNLOAD_DIR)
@@ -101,10 +102,15 @@ class Browser():
         download.set_destination_uri('file://%s' % path)
         print('file://%s' % path)
 
+        #while download.get_status:
+        #    print(download.get_status())
+        #    pass
+
+        new_dir = str.replace(path, " ", "\ ")
+        os.system("evince -f %s" % new_dir)
+
 
         #download.set_destination_uri("file://home/vampirodx/hola.txt")
-
-
         #download.start(download)
         #down.webkit_download_start()
         return True
