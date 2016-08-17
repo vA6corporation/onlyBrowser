@@ -35,11 +35,12 @@ class Browser():
         self.scroll.add(self.webview)
         self.webview.show()
 
-        self.webview.open('https://accounts.google.com/ServiceLogin?service=wise&passive=true&continue=http%3A%2F%2Fdrive.google.com%2F%3Futm_source%3Des%26utm_medium%3Dbutton%26utm_campaign%3Dweb%26utm_content%3Dgotodrive%26usp%3Dgtd%26ltmpl%3Ddrive&urp=https%3A%2F%2Fwww.google.com%2F')
+        self.webview.open('http://munisatipo.gob.pe/index.php/22-convocatoria')
         #self.webview.open('http://www.munisatipo.gob.pe/index.php/galerias')
 
         self.webview.connect("navigation-policy-decision-requested", self.check)
         self.webview.connect("download-requested", self.download)
+        self.webview.connect("new-window-policy-decision-requested", self.new_window)
         #self.webview.connect("webkit_download_set_destination_uri", self.destino)
 
     def on_aceptar_button_clicked(self, widget, data=None):
@@ -71,6 +72,13 @@ class Browser():
     def check(self, widget, frame, req, nav, policy ,data=None):
         #self.message_dialog.show()
         print("Se abre un link")
+        return False
+
+
+    def new_window(self, widget, frame, req, nav, policy ,data=None):
+        #self.message_dialog.show()
+        print("Se abre una ventana")
+        policy.download()
         return False
 
     def download(self, widget, download, data=None):
